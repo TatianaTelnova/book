@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:include="/_menu"></div>
+<div class="centerContainer">
+    <form class="formContainer" method="POST" action="/registration" th:object="${user}">
+        <h1 class="withMargin">Регистрация</h1>
+        <input type="text" path="username" placeholder="Username" th:field="*{username}" autofocus="true" required/>
+        <input type="password" path="password" th:field="*{password}" placeholder="Password" required/>
+        <div class="error" th:text="${usernameError}"></div>
+        <input class="btn" type="submit" value="Отправить"/>
+    </form>
+</div>
+</body>
+</html>

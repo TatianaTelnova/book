@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/test.js}"></script>
+</head>
+<body>
+<div th:include="/_menu"></div>
+<h1 class="withMargin">Корзина</h1>
+<div class="error" th:text="${userOrderError}"></div>
+<div th:unless="${userOrderError}">
+    <form method="POST" action="/confirm">
+        <div>
+            <input type="tel" name="phone" pattern="[+]{1}7{1}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
+                   placeholder="+7-9XX-XXX-XX-XX" required/>
+            <input type="submit" class="btn withMargin" th:if="${userOrder}" value="Оформить заказ"/>
+        </div>
+    </form>
+    <div class="withMargin">Итого: <span id="sumUserOrder"></span></div>
+</div>
+<div class="orderContainer" th:each="order : ${userOrder}" th:attr="data-id=${order.book.idBook}">
+    <p class="bold withMarginTop"><span th:text="${order.book.title}"></span></p>
+    <p class="withMarginTop">Автор: <span th:text="${order.book.author}"></span></p>
+    <p class="withMarginTop">Цена: <span class="price" th:text="${order.book.price}"></span> руб.</p>
+    <div class="withMarginLeftRight">
+        <button class="btn decrement" th:attr="data-id=${order.book.idBook}">-</button>
+        <span class="withMarginTop count" th:attr="data-id=${order.book.idBook}"
+              th:text="${order.count}"></span>
+        <button class="btn increment" th:attr="data-id=${order.book.idBook}">+</button>
+    </div>
+    <div>
+        <button class="btn red remove" th:attr="data-id=${order.book.idBook}">Удалить</button>
+    </div>
+</div>
+</body>
+</html>

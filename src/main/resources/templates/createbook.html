@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить книгу</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:include="/_menu"/>
+<div class="centerContainer">
+    <form class="formContainer" method="POST" action="/createbook" th:object="${newBook}">
+        <h1 class="withMargin">Новая книга</h1>
+        <input type="text" path="title" placeholder="Title" th:field="*{title}" autofocus="true" required/>
+        <input type="text" path="author" th:field="*{author}" placeholder="Author" required/>
+        <input type="number" path="price" th:field="*{price}" placeholder="Price" required/>
+        <input class="btn" type="submit" value="Сохранить"/>
+    </form>
+</div>
+</body>
+</html>

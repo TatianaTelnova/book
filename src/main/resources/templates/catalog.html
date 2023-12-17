@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/test.js}"></script>
+</head>
+<body>
+<div th:include="/_menu"></div>
+<h1 class="withMargin">Каталог</h1>
+<div sec:authorize="hasAuthority('ADMIN')">
+    <div><a class="btn withMargin" href="/createbook">Добавить новую книгу</a></div>
+</div>
+<div class="container">
+    <div class="block" th:each="item : ${booksCatalog}" th:attr="data-id=${item.book.idBook}">
+        <div class="top">
+            <p class="big"><span th:text="${item.book.title}"></span></p>
+        </div>
+        <p>Автор: <span th:text="${item.book.author}"></span></p>
+        <p>Цена: <span th:text="${item.book.price}"></span> руб.</p>
+        <div sec:authorize="hasAuthority('ADMIN')">
+            <!--            <div><a class="btn red" th:href="@{|/delete?id=${item.book.idBook}|}">Удалить</a></div>-->
+            <button class="btn red deleteBook" th:attr="data-id=${item.book.idBook}">Удалить</button>
+        </div>
+        <div sec:authorize="hasAuthority('USER')">
+            <button class="btn grey buy" th:attr="data-id=${item.book.idBook}" th:if="${item.count} == 0">В корзину
+            </button>
+            <button class="btn grey buy" th:attr="data-id=${item.book.idBook}" th:unless="${item.count} == 0"><span
+                    th:text="${item.count}"></span> шт
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

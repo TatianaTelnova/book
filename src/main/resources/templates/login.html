@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:include="/_menu"/>
+<div class="centerContainer">
+    <form class="formContainer" method="POST" action="/login">
+        <h1 class="withMargin">Вход в аккаунт</h1>
+        <input name="username" type="text" placeholder="Username" autofocus="true" required/>
+        <input name="password" type="password" placeholder="Password" required/>
+        <input class="btn" type="submit" value="Войти"/>
+    </form>
+</div>
+
+</body>
+</html>

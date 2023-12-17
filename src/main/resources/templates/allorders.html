@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказы</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/test.js}"></script>
+</head>
+<body>
+<div th:include="/_menu"></div>
+<h1 class="withMargin">Заказы</h1>
+<div class="error" th:text="${orderItemsError}"></div>
+<div class="withMargin order" th:each="order : ${orderItems}" th:attr="data-id=${order.idOrder}">
+    <p><span class="status highlight" th:text="${order.status}"></span></p>
+    <p>Телефон для уведомлений по заказу: <span th:text="${order.phone}"></span></p>
+    <p>Сумма заказа: <span th:text="${order.amount}"></span> руб.</p>
+    <p>Книги:</p>
+    <ul th:each="item : ${order.bookItems}">
+        <li><span class="bold" th:text="${item.book.title}">Книга книга</span>, автор <span
+                th:text="${item.book.author}">человек</span>, цена <span
+                th:text="${item.book.price}">1111</span> руб., <span th:text="${item.count}">1111</span> шт
+        </li>
+    </ul>
+    <div>
+        <button class="btn done" sec:authorize="hasAuthority('ADMIN')" th:attr="data-id=${order.idOrder}">
+            Готово
+        </button>
+        <button class="btn red deleteOrder" sec:authorize="hasAuthority('ADMIN')" th:attr="data-id=${order.idOrder}">
+            Удалить
+        </button>
+    </div>
+</div>
+</body>
+</html>
